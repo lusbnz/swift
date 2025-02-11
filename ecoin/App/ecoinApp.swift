@@ -1,14 +1,9 @@
-//
-//  ecoinApp.swift
-//  ecoin
-//
-//  Created by Đinh Quốc Việt on 11/2/25.
-//
-
 import SwiftUI
 
 @main
-struct ecoinApp: App {
+struct ecoin: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+
     var body: some Scene {
         WindowGroup {
             ContentView()
