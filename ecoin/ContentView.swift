@@ -1,24 +1,23 @@
-//
-//  ContentView.swift
-//  ecoin
-//
-//  Created by Đinh Quốc Việt on 11/2/25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var authViewModel: AuthViewModel
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            if authViewModel.isLoggedIn {
+                HomeView(logout: authViewModel.logout)
+            } else {
+                LoginView()
+            }
         }
-        .padding()
+        .onAppear {
+            authViewModel.checkAuth()
+        }
     }
 }
 
 #Preview {
     ContentView()
+        .environmentObject(AuthViewModel())
 }

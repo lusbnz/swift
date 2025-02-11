@@ -13,6 +13,7 @@ class AuthViewModel: ObservableObject {
                 self.errorMessage = error.localizedDescription
             } else {
                 self.isLoggedIn = true
+                self.email = result?.user.email ?? ""
                 self.errorMessage = ""
             }
         }
@@ -24,6 +25,7 @@ class AuthViewModel: ObservableObject {
                 self.errorMessage = error.localizedDescription
             } else {
                 self.isLoggedIn = true
+                self.email = result?.user.email ?? ""
                 self.errorMessage = ""
             }
         }
