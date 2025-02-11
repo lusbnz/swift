@@ -10,12 +10,6 @@ struct HomeView: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
 
-            Text("Bạn đã đăng nhập với email:")
-            Text(authViewModel.email)
-                .font(.title2)
-                .fontWeight(.semibold)
-                .foregroundColor(.blue)
-
             Button(action: logout) {
                 Text("Đăng xuất")
                     .frame(maxWidth: .infinity)
@@ -28,9 +22,4 @@ struct HomeView: View {
         }
         .padding()
     }
-}
-
-#Preview {
-    ContentView()
-        .environmentObject(AuthViewModel())
 }

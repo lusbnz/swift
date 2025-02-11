@@ -46,8 +46,3 @@ struct LoginView: View {
         .padding()
     }
 }
-
-#Preview {
-    ContentView()
-        .environmentObject(AuthViewModel())
-}

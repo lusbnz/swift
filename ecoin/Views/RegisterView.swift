@@ -39,8 +39,3 @@ struct RegisterView: View {
         .padding()
     }
 }
-
-#Preview {
-    ContentView()
-        .environmentObject(AuthViewModel())
-}

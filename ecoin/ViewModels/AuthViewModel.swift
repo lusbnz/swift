@@ -13,7 +13,6 @@ class AuthViewModel: ObservableObject {
                 self.errorMessage = error.localizedDescription
             } else {
                 self.isLoggedIn = true
-                self.email = result?.user.email ?? ""
                 self.errorMessage = ""
             }
         }
@@ -25,24 +24,27 @@ class AuthViewModel: ObservableObject {
                 self.errorMessage = error.localizedDescription
             } else {
                 self.isLoggedIn = true
-                self.email = result?.user.email ?? ""
                 self.errorMessage = ""
             }
+        }
+    }
+
+    func checkAuth() {
+        DispatchQueue.main.async {
+            self.isLoggedIn = Auth.auth().currentUser != nil
         }
     }
 
     func logout() {
         do {
             try Auth.auth().signOut()
-            isLoggedIn = false
+            DispatchQueue.main.async {
+                self.isLoggedIn = false
+            }
         } catch {
-            errorMessage = error.localizedDescription
-        }
-    }
-
-    func checkAuth() {
-        if Auth.auth().currentUser != nil {
-            isLoggedIn = true
+            DispatchQueue.main.async {
+                self.errorMessage = error.localizedDescription
+            }
         }
     }
 }
