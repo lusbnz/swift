@@ -4,6 +4,7 @@ import FirebaseFirestore
 
 class AuthViewModel: ObservableObject {
     @Published var username = ""
+    @Published var fetchedUsername = ""
     @Published var email = ""
     @Published var password = ""
     @Published var rePassword = ""
@@ -24,6 +25,7 @@ class AuthViewModel: ObservableObject {
             } else {
                 self.isLoggedIn = true
                 self.errorMessage = ""
+                self.fetchUsername()
             }
         }
     }
@@ -53,6 +55,8 @@ class AuthViewModel: ObservableObject {
                         print("Error saving username: \(error.localizedDescription)")
                     }
                 }
+                
+                self.fetchedUsername = self.username
             }
         }
     }
@@ -100,15 +104,15 @@ class AuthViewModel: ObservableObject {
            return true
        }
     
-    func fetchUsername(completion: @escaping (String?) -> Void) {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        Firestore.firestore().collection("users").document(uid).getDocument { snapshot, error in
-            if let data = snapshot?.data(), let username = data["username"] as? String {
-                completion(username)
-            } else {
-                completion(nil)
-            }
-        }
-    }
+    func fetchUsername() {
+       guard let uid = Auth.auth().currentUser?.uid else { return }
+       
+       db.collection("users").document(uid).getDocument { snapshot, error in
+           if let data = snapshot?.data(), let username = data["username"] as? String {
+               DispatchQueue.main.async {
+                   self.fetchedUsername = username
+               }
+           }
+       }
+   }
 }
