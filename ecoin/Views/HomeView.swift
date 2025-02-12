@@ -6,7 +6,7 @@ struct HomeView: View {
 
     var body: some View {
         VStack(spacing: 20) {
-            Text("Chào mừng!")
+            Text("Chào mừng, \(authViewModel.username)!")
                 .font(.largeTitle)
                 .fontWeight(.bold)
 

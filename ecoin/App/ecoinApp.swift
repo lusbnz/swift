@@ -12,3 +12,7 @@ struct ecoin: App {
         }
     }
 }
+
+extension Color {
+    static let primaryColor = Color(red: 36/255, green: 138/255, blue: 61/255)
+}

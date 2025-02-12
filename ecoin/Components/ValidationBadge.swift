@@ -9,8 +9,9 @@ struct ValidationBadge: View {
             .font(.caption)
             .padding(.horizontal, 10)
             .padding(.vertical, 5)
-            .background(isValid ? Color.green.opacity(0.2) : Color.gray.opacity(0.2))
-            .foregroundColor(isValid ? .green : .gray)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .background(isValid ? Color.primaryColor.opacity(0.3) : Color.gray.opacity(0.2))
+            .foregroundColor(isValid ? Color.primaryColor : .gray)
+            .clipShape(RoundedRectangle(cornerRadius: 15))
+            .fixedSize(horizontal: true, vertical: false)
     }
 }

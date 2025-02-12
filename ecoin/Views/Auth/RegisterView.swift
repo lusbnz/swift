@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CreatePasswordView: View {
+struct RegisterView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @FocusState private var isFocused: Bool
     @State private var animate = false
@@ -14,12 +14,12 @@ struct CreatePasswordView: View {
             
             VStack {
                 VStack(alignment: .leading, spacing: 5) {
-                    Text("Create Password")
+                    Text("Register to EcoCoin")
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundColor(Color.primaryColor)
                     
-                    Text("Please enter your new password")
+                    Text("Please enter your details to register")
                         .font(.subheadline)
                         .foregroundColor(.gray)
                 }
@@ -28,7 +28,7 @@ struct CreatePasswordView: View {
                 .padding(.top, 40)
                 
                 VStack(spacing: 15) {
-                    TextField("", text: $authViewModel.password, prompt: Text("Mật khẩu")
+                    TextField("", text: $authViewModel.username, prompt: Text("Username")
                         .foregroundColor(.black))
                         .textInputAutocapitalization(.never)
                         .padding(10)
@@ -36,22 +36,32 @@ struct CreatePasswordView: View {
                         .foregroundColor(.black)
                         .focused($isFocused)
                     
-                    SecureField("", text: $authViewModel.rePassword, prompt: Text("Nhập lại mật khẩu").foregroundColor(.black))
+                    TextField("", text: $authViewModel.email, prompt: Text("Email")
+                        .foregroundColor(.black))
                         .textInputAutocapitalization(.never)
                         .padding(10)
                         .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
                         .foregroundColor(.black)
-
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 20)
-                .padding(.bottom, 50)
                 
                 HStack {
-                    Button(action: authViewModel.signUp) {
+                    Toggle(isOn: $isAgree) {
+                        Text("I agree to the Terms and Conditions")
+                            .foregroundColor(Color.primaryColor)
+                            .font(.subheadline)
+                    }
+                    .toggleStyle(CheckboxToggle())
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 5)
+                
+                HStack {
+                    NavigationLink(destination: CreatePasswordView()) {
                         HStack {
                             Spacer()
-                            Text("Register")
+                            Text("Next")
                                 .foregroundColor(.white)
                                 .fontWeight(.bold)
                             Spacer()
@@ -66,16 +76,37 @@ struct CreatePasswordView: View {
                 
                 ErrorMessage(message: authViewModel.errorMessage)
                 
-                VStack(alignment: .leading, spacing: 10) {
-                    HStack(spacing: 10) {
-                        ValidationBadge(text: "At least 8 characters", isValid: authViewModel.password.count >= 8)
-                        ValidationBadge(text: "One non-letter", isValid: authViewModel.password.rangeOfCharacter(from: CharacterSet.letters.inverted) != nil)
-                        ValidationBadge(text: "One digit", isValid: authViewModel.password.rangeOfCharacter(from: CharacterSet.decimalDigits) != nil)
-                    }
+                Text("or register with")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                    .padding(.top, 20)
+                
+                HStack(spacing: 15) {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.gray.opacity(0.2))
+                        .frame(width: 60, height: 60)
+                    
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.gray.opacity(0.2))
+                        .frame(width: 60, height: 60)
+                    
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.gray.opacity(0.2))
+                        .frame(width: 60, height: 60)
                 }
-                .padding(.horizontal, 10)
-                .padding(.top, 20)
-                .padding(.bottom, 150)
+                .padding(.bottom, 10)
+                
+                Text("Already have an account yet?")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                    .padding(.top, 20)
+                
+                NavigationLink(destination: LoginView()) {
+                    Text("Login")
+                        .foregroundColor(Color.primaryColor)
+                        .fontWeight(.bold)
+                }
+                .padding(.bottom, 100)
             }
             .background(Color.white)
             .clipShape(RoundedCornerShape(radius: 30, corners: [.topLeft, .topRight]))
@@ -93,4 +124,3 @@ struct CreatePasswordView: View {
         .navigationBarBackButtonHidden(true)
     }
 }
-
