@@ -1,7 +1,10 @@
+import SwiftUI
 
 struct MenuRow: View {
     var title: String
     var icon: String
+    var isFirst: Bool = false
+    var isLast: Bool = false
     
     var body: some View {
         HStack {
@@ -14,7 +17,12 @@ struct MenuRow: View {
         }
         .padding()
         .background(Color.white)
-        .cornerRadius(12)
+        .clipShape(
+            RoundedCornerShape(
+                radius: 12,
+                corners: isFirst ? [.topLeft, .topRight] : isLast ? [.bottomLeft, .bottomRight] : []
+            )
+        )
         .shadow(radius: 1)
     }
 }

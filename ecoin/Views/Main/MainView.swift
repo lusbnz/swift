@@ -21,12 +21,13 @@ struct MainView: View {
                 MeView()
                     .tag(Tab.me)
             }
+            .ignoresSafeArea(.container, edges: .top)
 
             VStack {
                 Spacer()
                 CustomTabBar(selectedTab: $selectedTab)
             }
         }
-        .edgesIgnoringSafeArea(.bottom)
+        .edgesIgnoringSafeArea(.all)
     }
 }
